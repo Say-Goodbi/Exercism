@@ -1,0 +1,20 @@
+# .github/workflows/automerge.yml
+name: Auto Merge new PRs
+
+on:
+  pull_request:
+    types: [labeled, synchronize, opened, ready_for_review]
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Auto-merge PR
+        uses: pascalgn/automerge-action@v0.14.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          merge_method: merge
